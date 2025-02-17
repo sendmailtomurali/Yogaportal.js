@@ -5,34 +5,52 @@ html
     style.
       body {
         font-family: Arial, sans-serif;
-        background-color: #f4f4f9;
+        background-color: #FFF3E0;
         margin: 0;
         padding: 20px;
-      }
-      h1 {
-        color: #333;
         text-align: center;
       }
+      h1 {
+        color: #E65100;
+      }
       table {
-        width: 100%;
+        width: auto;
         border-collapse: collapse;
-        margin: 20px 0;
+        margin: 10px auto;
+        background-color: #FFCC80;
+        display: inline-table;
       }
       th, td {
-        border: 1px solid #ccc;
-        padding: 10px;
+        border: 1px solid #E65100;
+        padding: 5px;
         text-align: left;
+        font-size: 14px;
+        white-space: nowrap;
       }
       th {
-        background-color: #333;
+        background-color: #E65100;
         color: white;
       }
       tr:nth-child(even) {
-        background-color: #f2f2f2;
+        background-color: #FFE0B2;
       }
       tr:hover {
-        background-color: #e0e0e0;
+        background-color: #FFB74D;
       }
+    script.
+      function formatTimeToAMPM() {
+        document.querySelectorAll(".time-cell").forEach(cell => {
+          let time = cell.innerText.trim();
+          if (time) {
+            let [hours, minutes] = time.split(":");
+            hours = parseInt(hours, 10);
+            let ampm = hours >= 12 ? "PM" : "AM";
+            hours = hours % 12 || 12; // Convert to 12-hour format
+            cell.innerText = `${hours}:${minutes} ${ampm}`;
+          }
+        });
+      }
+      document.addEventListener("DOMContentLoaded", formatTimeToAMPM);
   body
     h1 Attendance Details
     table
@@ -46,7 +64,6 @@ html
         tr
           td= record.id
           td= record.date
-          td= record.time
+          td.time-cell= record.time
           td= record.name
           td= record.activity
-

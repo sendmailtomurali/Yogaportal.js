@@ -25,45 +25,47 @@ html
         });
       }
       window.onload = preventDuplicateSelection;
-      
+    
     style.
       body {
         font-family: Arial, sans-serif;
-        background-color: #f4f4f9;
+        background-color: #FFF3E0;
         margin: 0;
         padding: 20px;
       }
       h1 {
-        color: #333;
+        color: #E65100;
         text-align: center;
       }
       form {
         max-width: 600px;
         margin: 0 auto;
         padding: 20px;
-        background-color: white;
-        border: 1px solid #ccc;
+        background-color: #FFCC80;
+        border: 1px solid #FB8C00;
         border-radius: 5px;
       }
       label {
         display: block;
         margin: 10px 0 5px;
+        color: #E65100;
       }
       input, select {
         width: 100%;
         padding: 10px;
         margin-bottom: 10px;
-        border: 1px solid #ccc;
+        border: 1px solid #FB8C00;
         border-radius: 5px;
+        background-color: #FFF3E0;
       }
       input[type="submit"] {
-        background-color: #4CAF50;
+        background-color: #E65100;
         color: white;
         border: none;
         cursor: pointer;
       }
       input[type="submit"]:hover {
-        background-color: #45a049;
+        background-color: #4A148C;
       }
   body
     h1 Add Attendance
@@ -72,7 +74,7 @@ html
       input(type="date" name="date" required)
 
       label(for="time") Time
-      input(type="time" name="time" required)
+      input(type="time" name="time" required step="1")
 
       label(for="activity") Activity
       input(type="text" name="activity" required)
@@ -85,4 +87,5 @@ html
             option(value=user.name)= user.name
 
       input(type="submit" value="Add Attendance")
+
 

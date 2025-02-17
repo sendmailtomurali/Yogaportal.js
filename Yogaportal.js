@@ -14,7 +14,7 @@ app.use(express.static("public"));
 
 // Create a new SQLite3 database
 db.serialize(function() {
-    db.run("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, location TEXT, membersince TEXT)");
+    db.run("CREATE TABLE  IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, location TEXT, membersince TEXT, status TEXT DEFAULT 'Active')");
 });
 
 db.serialize(function() {
@@ -38,7 +38,7 @@ app.get('/Members', function(req, res) {
 });
 
 app.get('/Attendance', function(req, res) {
-    db.all("SELECT * FROM attendance", function(err, rows) {
+    db.all("SELECT * FROM attendance ORDER by id DESC", function(err, rows) {
         if (err) {
             console.error(err);
             res.status(500).send("Error retrieving data");
@@ -49,7 +49,7 @@ app.get('/Attendance', function(req, res) {
 });
 
 app.get('/addAttendance', function(req, res) {
-    db.all("SELECT name FROM users", function(err, rows) {
+    db.all("SELECT name FROM users WHERE status='Active'", function(err, rows) {
         if (err) {
             console.error(err);
             res.status(500).send("Error retrieving users");
