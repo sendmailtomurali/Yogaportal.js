@@ -114,7 +114,7 @@ app.post('/addAttendance', function(req, res) {
 
 
 
-var server=app.listen(3000,function()
+var server=app.listen(3030,function()
 {
     console.log("Server is running on port", server.address().port);
 });
