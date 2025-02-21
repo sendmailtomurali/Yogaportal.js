@@ -1,6 +1,88 @@
 doctype html
 html
   head
-    title Yoga Attendance Sheet
+    title Welcome to Attendance System
+    style.
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: 'Arial', sans-serif;
+        background-color: #F7F4F1;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .container {
+        width: 80%;
+        max-width: 1000px;
+        height: 70vh;
+        background-color: #ECE7E1;
+        border: 1px solid #D5C6B8;
+        border-radius: 8px;
+        display: flex;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.05);
+        overflow: hidden;
+      }
+      .left-section {
+        width: 50%;
+        background: url('/images/landing page.jpg') no-repeat center center;
+        background-size: cover;
+      }
+      .right-section {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 20px;
+      }
+      h1 {
+        color: #4A6572;
+        margin-bottom: 20px;
+      }
+      p {
+        color: #7A8C99;
+        font-size: 18px;
+        margin-bottom: 30px;
+      }
+      .button-container {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+      .nav-button {
+        background-color: #4A6572;
+        color: white;
+        border: none;
+        cursor: pointer;
+        padding: 12px 20px;
+        font-size: 16px;
+        font-weight: bold;
+        border-radius: 5px;
+        text-align: center;
+        width: 200px;
+        transition: 0.3s ease;
+      }
+      .nav-button:hover {
+        background-color: #7A8C99;
+        transform: scale(1.05);
+      }
   body
-    p Welcome to Yoga Attendance Details
+    .container
+      .left-section
+      .right-section
+        h1 Welcome to the Attendance System
+        p Please choose an option below:
+
+        .button-container
+          a(href="/addAttendance")
+            button.nav-button Add Attendance
+          a(href="/Attendance")
+            button.nav-button View Attendance
+
+
