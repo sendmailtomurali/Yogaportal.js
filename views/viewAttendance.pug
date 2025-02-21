@@ -2,6 +2,7 @@ doctype html
 html
   head
     title Attendance
+    meta(name="viewport" content="width=device-width, initial-scale=1")
     style.
       * {
         margin: 0;
@@ -17,15 +18,10 @@ html
         justify-content: center;
         align-items: center;
       }
-      h1 {
-        color: #4A6572;
-        text-align: center;
-        margin-bottom: 20px;
-      }
       .table-container {
-        width: 80%;
+        width: 90%;
         max-width: 900px;
-        height: 70vh;
+        height: auto;
         background-color: #ECE7E1;
         border: 1px solid #D5C6B8;
         border-radius: 8px;
@@ -58,25 +54,34 @@ html
       tr:hover {
         background-color: #D5C6B8;
       }
-      .back-container {
+      .button-container {
         display: flex;
-        justify-content: center;
+        flex-direction: column;
+        gap: 15px;
         margin-top: 20px;
       }
-      .back-button {
+      .nav-button {
         background-color: #4A6572;
         color: white;
         border: none;
         cursor: pointer;
-        padding: 8px 15px;
-        font-size: 14px;
+        padding: 12px 20px;
+        font-size: 16px;
         font-weight: bold;
         border-radius: 5px;
         text-align: center;
-        width: 120px;
+        width: 200px;
+        transition: 0.3s ease;
       }
-      .back-button:hover {
+      .nav-button:hover {
         background-color: #7A8C99;
+        transform: scale(1.05);
+      }
+      @media (max-width: 768px) {
+        .table-container {
+          width: 95%;
+          height: auto;
+        }
       }
     script.
       function formatTimeToAMPM() {
@@ -86,7 +91,7 @@ html
             let [hours, minutes] = time.split(":");
             hours = parseInt(hours, 10);
             let ampm = hours >= 12 ? "PM" : "AM";
-            hours = hours % 12 || 12; // Convert to 12-hour format
+            hours = hours % 12 || 12;
             cell.innerText = `${hours}:${minutes} ${ampm}`;
           }
         });
@@ -109,7 +114,10 @@ html
             td.time-cell= record.time
             td= record.name
             td= record.activity
+    .button-container
+      a(href="/addAttendance")
+        button.nav-button Add Attendance
+      a(href="/")
+        button.nav-button Home
 
-    .back-container
-      button.back-button(onclick="window.history.back()") Back
 

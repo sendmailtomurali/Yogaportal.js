@@ -2,6 +2,7 @@ doctype html
 html
   head
     title Add Attendance
+    meta(name="viewport" content="width=device-width, initial-scale=1")
     script.
       function preventDuplicateSelection() {
         let selects = document.querySelectorAll("select");
@@ -27,10 +28,8 @@ html
       function selectActivity(level) {
         document.getElementById("activity").value = level;
 
-        // Remove selected class from all images
         document.querySelectorAll('.level img').forEach(img => img.classList.remove('selected'));
 
-        // Add selected class to clicked image
         document.getElementById(level.toLowerCase()).classList.add('selected');
       }
       window.onload = preventDuplicateSelection;
@@ -50,15 +49,10 @@ html
         justify-content: center;
         align-items: center;
       }
-      h1 {
-        color: #4A6572;
-        text-align: center;
-        margin-bottom: 20px;
-      }
       .form-container {
-        width: 80%;
+        width: 90%;
         max-width: 900px;
-        height: 70vh;
+        height: auto;
         background-color: #ECE7E1;
         border: 1px solid #D5C6B8;
         border-radius: 8px;
@@ -70,32 +64,12 @@ html
       }
       .form-sections {
         display: flex;
+        flex-wrap: wrap;
         justify-content: space-between;
         width: 100%;
-        height: 50%;
       }
       .left-section, .right-section {
         width: 48%;
-      }
-      label {
-        display: block;
-        margin: 10px 0 5px;
-        color: #4A6572;
-        font-weight: 500;
-        text-align: center;
-      }
-      input, select {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 10px;
-        border: 1px solid #D5C6B8;
-        border-radius: 5px;
-        background-color: #FAF3EC;
-      }
-      .container {
-        text-align: center;
-        width: 100%;
-        margin-top: 10px;
       }
       .levels {
         display: flex;
@@ -141,27 +115,18 @@ html
         border: 3px solid #4A6572;
         transform: scale(1.1);
       }
-      .submit-container {
-        display: flex;
-        justify-content: center;
-        margin-top: 10px;
+      @media (max-width: 768px) {
+        .form-sections {
+          flex-direction: column;
+        }
+        .left-section, .right-section {
+          width: 100%;
+        }
+        .levels {
+          flex-direction: column;
+          align-items: center;
+        }
       }
-      input[type="submit"] {
-        background-color: #4A6572;
-        color: white;
-        border: none;
-        cursor: pointer;
-        padding: 8px 15px;
-        font-size: 14px;
-        font-weight: bold;
-        border-radius: 5px;
-        width: 180px;
-        text-align: center;
-      }
-      input[type="submit"]:hover {
-        background-color: #7A8C99;
-      }
-
   body
     h1 Add Attendance
     form(action="/addAttendance" method="post" class="form-container")
@@ -181,7 +146,6 @@ html
               each user in users
                 option(value=user.name)= user.name
       
-      // Hidden input to store activity value
       input(type="hidden" name="activity" id="activity" required)
 
       .container
