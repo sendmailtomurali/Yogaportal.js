@@ -18,7 +18,7 @@ db.serialize(function() {
 });
 
 db.serialize(function() {
-    db.run("CREATE TABLE IF NOT EXISTS attendance (id INTEGER PRIMARY KEY AUTOINCREMENT, date TEXT, time TEXT, name TEXT, activity TEXT, FOREIGN KEY (name) REFERENCES users(name))");
+    db.run("CREATE TABLE IF NOT EXISTS attendance (id INTEGER PRIMARY KEY AUTOINCREMENT, date DATE, time TEXT, name TEXT, activity TEXT, FOREIGN KEY (name) REFERENCES users(name))");
 });
 
 app.get('/',function(req,res)
@@ -37,14 +37,40 @@ app.get('/Members', function(req, res) {
     });
 });
 
-app.get('/Attendance', function(req, res) {
-    db.all("SELECT * FROM attendance ORDER by id DESC", function(err, rows) {
+app.get('/attendance', (req, res) => {
+    let page = parseInt(req.query.page) || 1;
+    let limit = 50; // Show 50 records per page
+    let offset = (page - 1) * limit;
+
+    db.all(`SELECT * FROM attendance ORDER BY DATE(date) DESC LIMIT ? OFFSET ?`, [limit, offset], (err, rows) => {
         if (err) {
-            console.error(err);
-            res.status(500).send("Error retrieving data");
-        } else {
-            res.render('viewAttendance', { attendance: rows });
+            return res.status(500).send('Database error');
         }
+        res.render('viewAttendance', { attendance: rows, currentPage: page });
+    });
+});
+
+app.get('/reportAttendance', (req, res) => {
+    let { startDate, endDate, user } = req.query;
+    let query = `SELECT * FROM attendance WHERE date BETWEEN ? AND ?`;
+    let params = [startDate, endDate];
+
+    if (user) {
+        query += " AND name = ?";
+        params.push(user);
+    }
+    
+    db.all(query, params, (err, rows) => {
+        if (err) {
+            return res.status(500).send("Database error");
+        }
+
+        db.all("SELECT name FROM users", (err, users) => {
+            if (err) {
+                return res.status(500).send("Error retrieving users");
+            }
+            res.render('reportAttendance', { attendance: rows, users });
+        });
     });
 });
 

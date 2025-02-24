@@ -1,0 +1,40 @@
+doctype html
+html
+  head
+    title Attendance Report
+    link(rel="stylesheet", href="/public/styles.css") 
+  body
+    h1 Attendance Report
+
+    form(action="/reportAttendance" method="get")
+      label(for="startDate") Start Date:
+      input(type="date" name="startDate" required)
+      
+      label(for="endDate") End Date:
+      input(type="date" name="endDate" required)
+      
+      label(for="user") Select User:
+      select(name="user")
+        option(value="") All Users
+        each user in users
+          option(value=user.name)= user.name
+
+      button(type="submit") View Report
+
+    if attendance.length
+      table(border="1")
+        thead
+          tr
+            th Date
+            th Time
+            th Name
+            th Activity
+        tbody
+          each record in attendance
+            tr
+              td= record.date
+              td= record.time
+              td= record.name
+              td= record.activity
+    else
+      p No records found for the selected criteria.

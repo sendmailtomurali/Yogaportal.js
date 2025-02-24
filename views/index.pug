@@ -20,22 +20,23 @@ html
       .container {
         width: 90%;
         max-width: 1000px;
-        height: 80vh;
+        height: auto;
         background-color: #ECE7E1;
         border: 1px solid #D5C6B8;
         border-radius: 8px;
         display: flex;
-        flex-direction: row;
+        flex-direction: column; /* Changed to column */
         box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.05);
         overflow: hidden;
       }
       .left-section {
-        width: 50%;
+        width: 100%; /* Changed to 100% */
+        height: 250px; /* Added height for better display on small screens */
         background: url('/images/landing page.jpg') no-repeat center center;
         background-size: cover;
       }
       .right-section {
-        width: 50%;
+        width: 100%; /* Changed to 100% */
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -74,17 +75,17 @@ html
         background-color: #7A8C99;
         transform: scale(1.05);
       }
-      @media (max-width: 768px) {
+      @media (min-width: 769px) { /* Updated media query for larger screens */
         .container {
-          flex-direction: column;
-          height: auto;
+          flex-direction: row;
+          height: 80vh;
         }
         .left-section {
-          width: 100%;
-          height: 250px;
+          width: 50%;
+          height: auto;
         }
         .right-section {
-          width: 100%;
+          width: 50%;
         }
       }
   body
@@ -99,6 +100,7 @@ html
             button.nav-button Add Attendance
           a(href="/Attendance")
             button.nav-button View Attendance
+
 
 
 
